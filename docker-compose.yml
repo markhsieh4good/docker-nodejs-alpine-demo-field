@@ -1,0 +1,28 @@
+version: "3.5"
+
+services:
+    nodejs-srv:
+        # image: node:8.17.0-alpine3.11
+        build:
+          context: ./node-modify
+          dockerfile: Dockerfile
+        image: nodejs-8.17-alpine3.11:demo02
+        hostname: nodejs-srv-8.17
+        container_name: nodejs-srv-8.17-alpine
+        restart: unless-stopped
+        volumes:
+          - ./rand-tool:/opt/project
+        ports:
+          - 7880:80
+        environment:
+          - TZ=Asia/Taipei     
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "5m"
+                max-file: "3"
+          
+networks:
+  default:
+    name: project-bridge
+    external: true
