@@ -23,7 +23,16 @@ RUN chmod +x ./utility_namespace_dns.sh
 RUN ./utility_namespace_dns.sh
 
 ENV PATH="${PATH}:/usr/local/bin"
+RUN ls -l /usr/local/bin/ && echo "/usr/local/bin exist" || mkdir /usr/local/bin
 RUN ln -s /var/run /run
 
-ENTRYPOINT ["tail"]
-CMD ["-f","/dev/null"]
+COPY booting.sh .
+COPY bash_color.sh .
+RUN chmod +x ./booting.sh
+RUN ln -s /opt/booting.sh /usr/local/bin/booting
+
+EXPOSE 80
+EXPOSE 3000
+
+ENTRYPOINT ["bash"]
+CMD ["booting"]

@@ -6,14 +6,16 @@ services:
         build:
           context: ./node-modify
           dockerfile: Dockerfile
-        image: nodejs-8.17-alpine3.11:demo02
+        image: nodejs-8.17-alpine3.11:demo03
         hostname: nodejs-srv-8.17
         container_name: nodejs-srv-8.17-alpine
         restart: unless-stopped
         volumes:
           - ./rand-tool:/opt/project
+          - ./web-prob:/opt/www
         ports:
           - 7880:80
+          - 3000:3000
         environment:
           - TZ=Asia/Taipei     
         logging:
